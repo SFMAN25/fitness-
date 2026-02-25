@@ -1,75 +1,94 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // --- FAQ Interaction ---
-    const faqQuestions = document.querySelectorAll('.faq-question');
+// بيانات التمارين مع الصور (تقدر تغير الروابط لصور حقيقية)
+const exercisesData = [
+    { name: "تمرين ضهر (W)", duration: 45, info: "بيخلي ضهرك مفرود زي الأبطال", img: "🧗‍♂️" },
+    { name: "تمرين البلانك", duration: 30, info: "سر البطن الحديدية", img: "🧘‍♂️" },
+    { name: "تمرين السكوات", duration: 45, info: "رجلين قوية يعني حرق أسرع", img: "🦵" },
+    { name: "تمرين رفع الرجلين", duration: 40, info: "وداعاً لترهلات البطن", img: "⛓️" }
+];
 
-    faqQuestions.forEach(question => {
-        question.addEventListener('click', () => {
-            // Toggle active class on question for arrow rotation
-            question.classList.toggle('active');
-            // Toggle visibility of the answer
-            const answer = question.nextElementSibling;
-            if (answer.classList.contains('show')) {
-                answer.classList.remove('show');
-            } else {
-                answer.classList.add('show');
-            }
-        });
-    });
+let progress = 0;
 
-    // --- AI Chat Interaction ---
-    const userInput = document.getElementById('userInput');
-    const sendBtn = document.getElementById('sendBtn');
-    const chatDisplay = document.getElementById('chat-display');
+function startJourney() {
+    const name = document.getElementById('userNameInput').value;
+    if (name === "") return alert("اكتب اسمك الأول يا بطل!");
 
-    sendBtn.addEventListener('click', sendMessage);
-    // Allow sending message with Enter key
-    function handleKeyPress(event) {
-        if (event.key === 'Enter') {
-            sendMessage();
-        }
-    }
+    localStorage.setItem('boda_user', name);
+    document.getElementById('welcomeName').innerText = name;
     
-    function sendMessage() {
-        const messageText = userInput.value.trim();
-        if (messageText === '') return;
+    // إظهار المحتوى
+    document.getElementById('login-section').classList.add('hidden');
+    document.getElementById('progress-section').classList.remove('hidden');
+    document.getElementById('exercises').classList.remove('hidden');
+    document.getElementById('ai-chat').classList.remove('hidden');
+    
+    renderExercises();
+}
 
-        // Display user message
-        const userMessageDiv = document.createElement('p');
-        userMessageDiv.classList.add('user-message');
-        userMessageDiv.innerText = messageText;
-        chatDisplay.appendChild(userMessageDiv);
-        chatDisplay.scrollTop = chatDisplay.scrollHeight; // Scroll to bottom
+function renderExercises() {
+    const grid = document.getElementById('exerciseGrid');
+    grid.innerHTML = exercisesData.map((ex, index) => `
+        <div class="ex-card">
+            <h3>${ex.name}</h3>
+            <p>${ex.info}</p>
+            <button class="btn" onclick="startTimer(${index})">ابدأ التمرين ▶</button>
+        </div>
+    `).join('');
+}
 
-        userInput.value = ''; // Clear input
+let timer;
+function startTimer(index) {
+    const ex = exercisesData[index];
+    document.getElementById('currentExerciseName').innerText = ex.name;
+    document.getElementById('exerciseImage').innerText = ex.img; // هنا ممكن تحط صور حقيقية
+    document.getElementById('timerModal').classList.remove('hidden');
+    
+    let timeLeft = ex.duration;
+    const display = document.getElementById('countdown');
+    display.innerText = timeLeft;
 
-        // Simulate AI response (this is where you'd integrate a real AI API)
-        setTimeout(() => {
-            const aiResponseDiv = document.createElement('p');
-            aiResponseDiv.classList.add('ai-message');
-            aiResponseDiv.innerText = getAIResponse(messageText);
-            chatDisplay.appendChild(aiResponseDiv);
-            chatDisplay.scrollTop = chatDisplay.scrollHeight; // Scroll to bottom
-        }, 800); // Simulate network delay
-    }
-
-    function getAIResponse(query) {
-        query = query.toLowerCase();
-        if (query.includes("وزن") || query.includes("تخسيس") || query.includes("دايت")) {
-            return "الـ AI بيقولك: نعم، التمارين دي بتساعد في حرق الدهون وشد العضلات. ركز كمان على نظام غذائي صحي وقلل السكريات والنشويات!";
-        } else if (query.includes("تمرين ضهر")) {
-            return "الـ AI بيقولك: لتمرين الظهر (W)، ركز على عصر لوحي الكتف للخلف والأسفل. كأنك بتحاول تمسك قلم بين كتافك!";
-        } else if (query.includes("بلانك")) {
-            return "الـ AI بيقولك: في البلانك، حافظ على جسمك مستقيم زي اللوح الخشبي. بطنك مشدودة وماتخليش وسطك ينزل أو يطلع زيادة.";
-        } else if (query.includes("سكوات")) {
-            return "الـ AI بيقولك: في السكوات، لازم ظهرك يكون مفرود ووزنك على كعب رجلك. كأنك بتقعد على كرسي وهمي.";
-        } else if (query.includes("رفع رجلين")) {
-            return "الـ AI بيقولك: لتمرين رفع الرجلين، انزل برجليك ببطء شديد وقبل ما تلمس الأرض ارجع ارفعهم تاني عشان تحس بالعضلة صح.";
-        } else if (query.includes("مياه") || query.includes("شرب")) {
-            return "الـ AI بيقولك: شرب المياه ضروري جداً! بيساعد على الحرق، طرد السموم، وبيخليك نشيط. 3 لتر يومياً ممتازين!";
-        } else if (query.includes("نوم")) {
-            return "الـ AI بيقولك: النوم الكافي مهم لتعافي العضلات ونزول الوزن. نام 7-8 ساعات بدري عشان جسمك يستفيد.";
-        } else {
-            return "الـ AI بيقولك: سؤال رائع! استمر في التزامك وهتلاقي نتائج مبهرة في الـ 23 يوم.";
+    timer = setInterval(() => {
+        timeLeft--;
+        display.innerText = timeLeft;
+        if (timeLeft <= 0) {
+            clearInterval(timer);
+            alert("عاش يا بطل! كمل اللي بعده.");
         }
+    }, 1000);
+}
+
+function closeTimer() {
+    clearInterval(timer);
+    document.getElementById('timerModal').classList.add('hidden');
+    updateProgress();
+}
+
+function updateProgress() {
+    progress += (100 / exercisesData.length) / 23; // تقدم بسيط كل تمرين لمدة 23 يوم
+    if (progress > 100) progress = 100;
+    
+    const bar = document.getElementById('progressBar');
+    bar.style.width = progress + "%";
+    bar.innerText = Math.round(progress) + "%";
+}
+
+// AI الذكي المتفاعل
+function askAI() {
+    const input = document.getElementById('aiInput').value.toLowerCase();
+    const chatBox = document.getElementById('chatBox');
+    let response = "";
+
+    if (input.includes("تعبت")) {
+        response = "عادي يا بطل، ده وجع خفيف معناه إن عضلاتك بتتبني! خد نفس وكمل.";
+    } else if (input.includes("نتيجة")) {
+        response = "في خلال 23 يوم جسمك هيتغير 180 درجة لو التزمت بالمياه والنوم مع التمارين دي.";
+    } else if (input.includes("جوعان")) {
+        response = "اشرب كوبايتين مياه كبار وكُل تفاحة أو خيارة، بلاش تبوظ التعب!";
+    } else {
+        response = "سؤال جامد! بص يا وحش، أهم حاجة في التمرين ده الاستمرارية، إنت قدها!";
     }
-});
+
+    chatBox.innerHTML += `<p class="user-msg"><b>إنت:</b> ${input}</p>`;
+    chatBox.innerHTML += `<p class="ai-msg"><b>Boda Bot:</b> ${response}</p>`;
+    document.getElementById('aiInput').value = "";
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
