@@ -3,98 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>💪 تحدي الـ 23 يوم - تدريبك الشامل</title>
+    <title>Boda Fitness - تحدي الـ 23 يوم</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="container">
+    <div class="main-container">
         <header>
-            <h1>🚀 تحدي الـ 23 يوم لتغيير الجسم</h1>
-            <p>جدول تمارين احترافي لنزول الوزن وشد الجسم بمساعدة AI.</p>
+            <div class="logo">🔥 Boda Fitness 🔥</div>
+            <h1>تحدي الـ 23 يوم <span class="highlight">المدمر</span></h1>
+            <p class="slogan">تمرين مش متعب.. بس نتايجه جبارة! 💪</p>
         </header>
 
-        <section id="training-schedule" class="section">
-            <h2>🗓️ جدول التمرين والالتزام اليومي</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>التمرين</th>
-                        <th>التكرار / المدة</th>
-                        <th>نصيحة الكابتن</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>تمرين ضهر (W) 🧗‍♂️</td>
-                        <td>3 مجموعات × 15 تكرار</td>
-                        <td>شد لوح الكتف للخلف بقوة واثبت ثانية.</td>
-                    </tr>
-                    <tr>
-                        <td>تمرين البلانك 🧘‍♂️</td>
-                        <td>30 ثانية × 3 مجموعات</td>
-                        <td>حافظ على استقامة الظهر (جسمك مسطرة).</td>
-                    </tr>
-                    <tr>
-                        <td>تمرين السكوات 🦵</td>
-                        <td>3 مجموعات × 15 تكرار</td>
-                        <td>انزل بظهر مفرود ووزنك على كعب القدم.</td>
-                    </tr>
-                    <tr>
-                        <td>رفع الرجلين (بطن) ⛓️</td>
-                        <td>3 مجموعات × 12 تكرار</td>
-                        <td>انزل برجلك ببطء شديد ولا تلمس الأرض.</td>
-                    </tr>
-                    <tr>
-                        <td>نوم بدري 😴</td>
-                        <td>7 - 8 ساعات</td>
-                        <td>أساسي جداً لحرق الدهون واستشفاء العضلات.</td>
-                    </tr>
-                    <tr>
-                        <td>شرب مياه 💧</td>
-                        <td>3 لتر يومياً</td>
-                        <td>اشرب كوباً قبل كل وجبة لزيادة الحرق.</td>
-                    </tr>
-                </tbody>
-            </table>
+        <section id="login-section" class="card">
+            <h3>أهلاً بطل! سجل اسمك عشان نبدأ:</h3>
+            <input type="text" id="userNameInput" placeholder="اكتب اسمك هنا...">
+            <button class="btn" onclick="startJourney()">ابدأ الرحلة 🚀</button>
         </section>
 
-        <hr class="separator">
-
-        <section id="faq-section" class="section">
-            <h2>❓ أسئلة وإجابات متكررة</h2>
-            <div class="faq-item">
-                <h3 class="faq-question">هل التمارين دي بتساعد على نزول الوزن؟</h3>
-                <p class="faq-answer">نعم، بتساعد على حرق السعرات وشد الجسم، لكن الأهم هو النظام الغذائي المتوازن.</p>
+        <section id="progress-section" class="card hidden">
+            <h3>يا بطل <span id="welcomeName"></span>، إنت أنجزت:</h3>
+            <div class="progress-container">
+                <div id="progressBar" class="progress-bar">0%</div>
             </div>
-            <div class="faq-item">
-                <h3 class="faq-question">إيه أهمية شرب 3 لتر مياه يومياً؟</h3>
-                <p class="faq-answer">المياه بتزيد من معدل الحرق، بتنقي الجسم من السموم، وبتقلل الإحساس بالجوع الكاذب.</p>
-            </div>
-            <div class="faq-item">
-                <h3 class="faq-question">لو حسيت بألم في أي تمرين، أعمل إيه؟</h3>
-                <p class="faq-answer">لو الألم حاد، توقف فوراً. لو مجرد إرهاق عضلي بسيط، كمل بس بحذر أو قلل التكرار.</p>
-            </div>
+            <p>باقي لك <span id="daysLeft">23</span> يوم على الجسم المثالي!</p>
         </section>
 
-        <hr class="separator">
+        <section id="exercises" class="card hidden">
+            <h2>قائمة التمارين اليومية</h2>
+            <div class="exercise-grid" id="exerciseGrid">
+                </div>
+        </section>
 
-        <section id="ai-chat" class="section">
-            <h2>🤖 اسأل مدرب الـ AI الخاص بك</h2>
-            <div class="chat-interface">
-                <div id="chat-display" class="chat-display">
-                    <p class="ai-message">أهلاً بك! أنا مدرب الـ AI الخاص بك. اسألني أي سؤال عن التمارين أو التغذية.</p>
-                </div>
-                <div class="chat-input-area">
-                    <input type="text" id="userInput" placeholder="اكتب سؤالك هنا..." onkeypress="handleKeyPress(event)">
-                    <button id="sendBtn">إرسال</button>
-                </div>
+        <div id="timerModal" class="modal hidden">
+            <div class="modal-content">
+                <h2 id="currentExerciseName">تمرين</h2>
+                <div id="exerciseImage"></div> <div id="countdown" class="timer-circle">00</div>
+                <button class="btn" onclick="closeTimer()">إنهاء التمرين ✅</button>
+            </div>
+        </div>
+
+        <section id="ai-chat" class="card hidden">
+            <h2>🤖 مدرب AI الذكي (Boda Bot)</h2>
+            <div class="chat-box" id="chatBox">
+                <p class="ai-msg">أنا معاك يا بطل.. اسألني عن أي حاجة في تمرينك!</p>
+            </div>
+            <div class="chat-input">
+                <input type="text" id="aiInput" placeholder="اكتب سؤالك هنا...">
+                <button onclick="askAI()">إرسال</button>
             </div>
         </section>
 
         <footer>
-            <p>&copy; 2023 تحدي الـ 23 يوم. كل الحقوق محفوظة. 
-            <br> تم التطوير بواسطة @Boss_Trading_Signal</p>
+            <p>Designed by <b>Boda</b> | All Rights Reserved © 2026</p>
         </footer>
     </div>
 
