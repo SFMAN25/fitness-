@@ -1,0 +1,233 @@
+/* General Body Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #e0f2f7; /* لون خلفية أزرق فاتح */
+    color: #333;
+    text-align: center;
+    padding: 20px;
+    margin: 0;
+    line-height: 1.6;
+    direction: rtl; /* اتجاه الكتابة من اليمين لليسار */
+}
+
+.container {
+    background: #ffffff; /* خلفية بيضاء للمحتوى */
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    border: 1px solid #c8e6c9; /* إطار خفيف */
+}
+
+/* Header Styles */
+header h1 {
+    color: #28a745; /* لون أخضر للعنوان الرئيسي */
+    font-size: 2.8em;
+    margin-bottom: 10px;
+}
+
+header p {
+    font-size: 1.2em;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+/* Section Styles */
+.section {
+    margin-bottom: 40px;
+    padding-top: 20px;
+}
+
+.section h2 {
+    color: #007bff; /* لون أزرق للعناوين الفرعية */
+    font-size: 2.2em;
+    margin-bottom: 25px;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 10px;
+    display: inline-block; /* عشان الخط يبقى تحت الكلمة بس */
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+th, td {
+    border: 1px solid #dcdcdc;
+    padding: 15px;
+    text-align: center;
+    font-size: 1.1em;
+}
+
+th {
+    background-color: #28a745; /* لون أخضر لخلفية رؤوس الجدول */
+    color: white;
+    font-weight: bold;
+}
+
+td {
+    background-color: #f9fdf9; /* لون فاتح لخلفية الخلايا */
+}
+
+/* Separator */
+.separator {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0));
+    margin: 60px 0;
+}
+
+/* FAQ Section */
+.faq-item {
+    background-color: #e8f5e9; /* خلفية خضراء فاتحة لأسئلة FAQ */
+    border-radius: 8px;
+    margin-bottom: 15px;
+    padding: 15px 20px;
+    text-align: right;
+    cursor: pointer; /* عشان يبين إنه قابل للضغط */
+    transition: background-color 0.3s ease;
+}
+
+.faq-item:hover {
+    background-color: #dcedc8;
+}
+
+.faq-question {
+    color: #1b5e20; /* لون أخضر غامق للسؤال */
+    font-size: 1.3em;
+    margin: 0;
+    position: relative;
+    padding-left: 30px; /* مسافة للأيقونة */
+}
+.faq-question::before {
+    content: '▶'; /* أيقونة سهم */
+    position: absolute;
+    right: 0;
+    color: #4CAF50;
+    font-size: 0.8em;
+    transition: transform 0.3s ease;
+}
+.faq-question.active::before {
+    transform: rotate(90deg); /* تدوير السهم عند الفتح */
+}
+
+.faq-answer {
+    color: #424242;
+    font-size: 1.1em;
+    margin-top: 10px;
+    display: none; /* إخفاء الإجابة في البداية */
+    padding-right: 30px;
+}
+.faq-answer.show {
+    display: block; /* إظهار الإجابة عند الحاجة */
+}
+
+/* AI Chat Section */
+.chat-interface {
+    background-color: #f0f4c3; /* خلفية صفراء فاتحة للدردشة */
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+    max-width: 600px;
+    margin: 30px auto;
+}
+
+.chat-display {
+    height: 200px;
+    background-color: #ffffff;
+    border: 1px solid #c5e1a5;
+    border-radius: 8px;
+    overflow-y: auto; /* عشان السكرول لو الرسائل كتير */
+    padding: 15px;
+    margin-bottom: 15px;
+    text-align: right; /* عشان الكلام يبقى من اليمين */
+}
+
+.user-message, .ai-message {
+    margin-bottom: 10px;
+    padding: 8px 12px;
+    border-radius: 15px;
+    max-width: 80%;
+    word-wrap: break-word; /* عشان النص الطويل */
+}
+
+.user-message {
+    background-color: #bbdefb; /* لون رسالة المستخدم أزرق فاتح */
+    text-align: right;
+    margin-right: auto;
+    margin-left: 0;
+}
+
+.ai-message {
+    background-color: #c8e6c9; /* لون رسالة الـ AI أخضر فاتح */
+    text-align: right;
+    margin-left: auto;
+    margin-right: 0;
+}
+
+
+.chat-input-area {
+    display: flex; /* عشان الأزرار جنب بعض */
+    gap: 10px;
+}
+
+#userInput {
+    flex-grow: 1; /* عشان ياخد أكبر مساحة */
+    padding: 12px;
+    border: 1px solid #a5d6a7;
+    border-radius: 8px;
+    font-size: 1em;
+    text-align: right;
+}
+
+#sendBtn {
+    background-color: #4CAF50; /* لون أخضر لزر الإرسال */
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease;
+}
+
+#sendBtn:hover {
+    background-color: #388e3c;
+}
+
+/* Footer Styles */
+footer {
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+    color: #777;
+    font-size: 0.9em;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        margin: 10px;
+        padding: 15px;
+    }
+    header h1 {
+        font-size: 2em;
+    }
+    .section h2 {
+        font-size: 1.8em;
+    }
+    th, td {
+        padding: 10px;
+        font-size: 0.9em;
+    }
+    .chat-input-area {
+        flex-direction: column;
+    }
+    #userInput, #sendBtn {
+        width: 100%;
+    }
+}
